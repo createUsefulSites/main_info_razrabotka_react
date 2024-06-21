@@ -21,7 +21,7 @@ function getData(data: string) {
 }
 
 function App() {
-  const [opened, setOpened] = useState<boolean>(true);
+  const [opened, setOpened] = useState<boolean>(false);
   const [info, setInfo] = useState<Array<{ [key: string]: string }>>();
   const [inputValue, setInputValue] = useState('');
   const [language, setLanguage] = useState<'rus' | 'eng'>('rus');
