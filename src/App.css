@@ -20,12 +20,15 @@
   gap: 5px;
 }
 
-.but {
+.but,
+.language {
   background-color: rgb(31, 31, 31);
   position: relative;
   border-radius: 10px;
   padding: 3px 7px;
   font-size: 80px;
+  min-width: 40px;
+  text-align: center;
   display: inline-block;
 }
 

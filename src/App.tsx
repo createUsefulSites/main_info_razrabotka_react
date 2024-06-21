@@ -4,7 +4,7 @@ import { data } from './data';
 import { useEffect, useState } from 'react';
 
 function removeAllExceptWords(item: string) {
-  return item.replace(/[^а-яА-ЯёЁ]/g, '').toLowerCase();
+  return item.replace(/[^a-zA-Zа-яА-ЯёЁ]/g, '').toLowerCase();
 }
 
 function getData(data: string) {
@@ -24,6 +24,7 @@ function App() {
   const [opened, setOpened] = useState<boolean>(true);
   const [info, setInfo] = useState<Array<{ [key: string]: string }>>();
   const [inputValue, setInputValue] = useState('');
+  const [language, setLanguage] = useState<'rus' | 'eng'>('rus');
 
   useEffect(() => {
     setInfo(getData(data));
@@ -32,7 +33,8 @@ function App() {
   function handleClickKeys(e: React.SyntheticEvent) {
     const target = e.target as HTMLElement;
     if (target.tagName === 'LI') {
-      setInputValue((prev) => prev + target.innerHTML);
+      if (target.className === 'but') setInputValue((prev) => prev + target.innerHTML);
+      if (target.className === 'language') setLanguage((prev) => (prev === 'rus' ? 'eng' : 'rus'));
     }
   }
 
@@ -60,39 +62,73 @@ function App() {
           <div className='input_div'>{inputValue}</div>
           <img className='delete' src={Delete} alt='delete' onClick={handleClickDel} />
           <ul className='wrapper' onClick={(e) => handleClickKeys(e)}>
-            <li className='but'>A</li>
-            <li className='but'>Б</li>
-            <li className='but'>В</li>
-            <li className='but'>Г</li>
-            <li className='but'>Д</li>
-            <li className='but'>Е</li>
-            <li className='but'>Ё</li>
-            <li className='but'>Ж</li>
-            <li className='but'>З</li>
-            <li className='but'>И</li>
-            <li className='but'>Й</li>
-            <li className='but'>К</li>
-            <li className='but'>Л</li>
-            <li className='but'>М</li>
-            <li className='but'>Н</li>
-            <li className='but'>О</li>
-            <li className='but'>П</li>
-            <li className='but'>Р</li>
-            <li className='but'>С</li>
-            <li className='but'>Т</li>
-            <li className='but'>У</li>
-            <li className='but'>Ф</li>
-            <li className='but'>Х</li>
-            <li className='but'>Ц</li>
-            <li className='but'>Ч</li>
-            <li className='but'>Ш</li>
-            <li className='but'>Щ</li>
-            <li className='but'>Ы</li>
-            <li className='but'>Ъ</li>
-            <li className='but'>Э</li>
-            <li className='but'>Ь</li>
-            <li className='but'>Ю</li>
-            <li className='but'>Я</li>
+            {language === 'rus' ? (
+              <>
+                <li className='but'>A</li>
+                <li className='but'>Б</li>
+                <li className='but'>В</li>
+                <li className='but'>Г</li>
+                <li className='but'>Д</li>
+                <li className='but'>Е</li>
+                <li className='but'>Ё</li>
+                <li className='but'>Ж</li>
+                <li className='but'>З</li>
+                <li className='but'>И</li>
+                <li className='but'>Й</li>
+                <li className='but'>К</li>
+                <li className='but'>Л</li>
+                <li className='but'>М</li>
+                <li className='but'>Н</li>
+                <li className='but'>О</li>
+                <li className='but'>П</li>
+                <li className='but'>Р</li>
+                <li className='but'>С</li>
+                <li className='but'>Т</li>
+                <li className='but'>У</li>
+                <li className='but'>Ф</li>
+                <li className='but'>Х</li>
+                <li className='but'>Ц</li>
+                <li className='but'>Ч</li>
+                <li className='but'>Ш</li>
+                <li className='but'>Щ</li>
+                <li className='but'>Ы</li>
+                <li className='but'>Ъ</li>
+                <li className='but'>Э</li>
+                <li className='but'>Ь</li>
+                <li className='but'>Ю</li>
+                <li className='but'>Я</li>
+              </>
+            ) : (
+              <>
+                <li className='but'>A</li>
+                <li className='but'>B</li>
+                <li className='but'>C</li>
+                <li className='but'>D</li>
+                <li className='but'>E</li>
+                <li className='but'>F</li>
+                <li className='but'>G</li>
+                <li className='but'>H</li>
+                <li className='but'>I</li>
+                <li className='but'>J</li>
+                <li className='but'>K</li>
+                <li className='but'>L</li>
+                <li className='but'>M</li>
+                <li className='but'>N</li>
+                <li className='but'>O</li>
+                <li className='but'>P</li>
+                <li className='but'>Q</li>
+                <li className='but'>R</li>
+                <li className='but'>S</li>
+                <li className='but'>T</li>
+                <li className='but'>U</li>
+                <li className='but'>V</li>
+                <li className='but'>W</li>
+                <li className='but'>X</li>
+                <li className='but'>Y</li>
+                <li className='but'>Z</li>
+              </>
+            )}
+            <li className='language'>@</li>
             <button className='enter' onClick={handleClickFind}>
               найти
             </button>
