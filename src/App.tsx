@@ -3,6 +3,10 @@ import Delete from './delete_button.png';
 import { data } from './data';
 import { useEffect, useState } from 'react';
 
+function removeAllExceptWords(item: string) {
+  return item.replace(/[^а-яА-ЯёЁ]/g, '').toLowerCase();
+}
+
 function getData(data: string) {
   const splittedData: Array<{ [key: string]: string }> = [];
   // eslint-disable-next-line no-control-regex
@@ -34,6 +38,17 @@ function App() {
 
   function handleClickDel() {
     setInputValue((prev) => prev.slice(0, -1));
+  }
+
+  function handleClickFind() {
+    const allInfos = document.querySelectorAll('h1');
+    allInfos.forEach((item) => {
+      if (removeAllExceptWords(item.innerHTML).includes(inputValue.toLowerCase())) {
+        item.scrollIntoView();
+      }
+    });
+    setInputValue('');
+    setOpened(false);
   }
 
   if (!info) return <div>Нет информации</div>;
@@ -78,9 +93,16 @@ function App() {
             <li className='but'>Ь</li>
             <li className='but'>Ю</li>
             <li className='but'>Я</li>
+            <button className='enter' onClick={handleClickFind}>
+              найти
+            </button>
           </ul>
-          <button className='enter'>найти</button>
         </>
+      )}
+      {opened === false && (
+        <div onClick={() => setOpened(true)} className='open_input'>
+          открыть ввод
+        </div>
       )}
       <div className='main_info'>
         {info.map((item, id) => {
