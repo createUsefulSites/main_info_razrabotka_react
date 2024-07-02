@@ -10,7 +10,7 @@ function removeAllExceptWords(item: string) {
 function getData(data: string) {
   const splittedData: Array<{ [key: string]: string }> = [];
   // eslint-disable-next-line no-control-regex
-  const newData = data.split(/\d+.	/).slice(1);
+  const newData = data.split(/\d+. /).slice(1);
 
   for (const item of newData) {
     const [header, answer] = item.replace('\n', 'DELETE').split('DELETE');
@@ -33,6 +33,7 @@ function App() {
   function handleClickKeys(e: React.SyntheticEvent) {
     const target = e.target as HTMLElement;
     if (target.tagName === 'LI') {
+      if ('vibrate' in navigator) navigator.vibrate(200);
       if (target.className === 'but') setInputValue((prev) => prev + target.innerHTML);
       if (target.className === 'language') setLanguage((prev) => (prev === 'rus' ? 'eng' : 'rus'));
     }
@@ -147,7 +148,7 @@ function App() {
           return (
             <article key={id}>
               <h1>{key}</h1>
-              <p>{value}</p>
+              <pre>{value}</pre>
             </article>
           );
         })}
